@@ -56,4 +56,25 @@ body {
 	font-size: 0.8rem;
 	color: #d1d1d1;
   }
+.card h1 button {
+	margin: 0 8px;
+	vertical-align: middle;
+  }
+.spinner {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border: 2px solid #ccc;
+	border-top-color: #333;
+	border-radius: 50%;
+	animation: spin 0.8s linear infinite;
+	vertical-align: middle;
+	margin-left: 4px;
+  }
+  
+  @keyframes spin {
+	to {
+	  transform: rotate(360deg);
+	}
+  }
   
