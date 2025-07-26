@@ -4,31 +4,6 @@ import axios from "axios";
 
 import './App.css';
 
-function getPrice(currency, amount){
-	console.log("called ", amount, " ", currency);
-	// const axios = require("axios");
-	let convertedPrice;
-	async function httpCall() {
-		const url = "https://api.1inch.dev/price/v1.1/137/{addresses}";
-
-		const config = {
-			headers: undefined,
-			params: {},
-			paramsSerializer: {
-			indexes: null,
-			},
-		};
-
-		try {
-		const response = await axios.get(url, config);
-		console.log(response.data);
-		convertedPrice = response.data;
-		} catch (error) {
-		console.error(error);
-		}
-	}
-}
-
 function App() {
   const [oldCurrency, setOldCurrency] = useState('ETH');
   const [newCurrency, setNewCurrency] = useState('USDC');
@@ -39,24 +14,60 @@ function App() {
 
   useEffect(()=>{
 	if (connected && amount)
-		setConvertedPrice(fetchPrice(newCurrency, amount));
+		setConvertedPrice(fetchQuote(oldCurrency, amount, newCurrency));
   }, [connected, amount])
 
-  const fetchPrice = async (currency, amount) => {
-    console.log('called', amount, currency);
+  const chainMap = {
+    ETH: {
+      chainId: 1,
+      tokenAddress: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+      decimals: 18,
+    },
+    USDC: {
+      chainId: 137,
+      tokenAddress: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+      decimals: 6,
+    },
+  };
+
+  const fetchQuote = async (oldCurrency, amount, newCurrency) => {
+    const src = chainMap[oldCurrency];
+    const dst = chainMap[newCurrency];
+
+    if (!src || !dst) {
+      console.error("Invalid currencies provided");
+      return null;
+    }
+
+    let normalizedAmount;
     try {
-      const response = await axios.get(
-        'https://api.1inch.dev/price/v1.1/137/{addresses}', // NOTE: Replace {addresses}
-        {
-          headers: {
-            Authorization: 'Bearer ${import.meta.env.1INCH_API_KEY}', // required for 1inch
-          },
-        }
-      );
-      console.log(response.data);
-      setUsdcPrice(response.data);
-    } catch (error) {
-      console.error('Error fetching price:', error.message);
+      normalizedAmount = ethers.parseUnits(amount.toString(), src.decimals).toString();
+    } catch (err) {
+      console.error("Failed to parse amount:", err);
+      return null;
+    }
+
+    const query = new URLSearchParams({
+      srcChain: src.chainId.toString(),
+      dstChain: dst.chainId.toString(),
+      srcTokenAddress: src.tokenAddress,
+      dstTokenAddress: dst.tokenAddress,
+      amount: normalizedAmount,
+      walletAddress: walletAddress || "0x0000000000000000000000000000000000000000",
+      enableEstimate: "true",
+    });
+
+    try {
+      const res = await fetch(`http://localhost:3001/api/price?${query}`);
+      const data = await res.json();
+      console.log("Quote :", data);
+	  console.log("Quote :", data.dstTokenAmount);
+	  return (Number(data.dstTokenAmount) / Math.pow(10, dst.decimals)).toFixed(dst.decimals);
+
+      return data?.toTokenAmount || "N/A";
+    } catch (err) {
+      console.error("Fetch quote failed:", err);
+      return null;
     }
   };
 
