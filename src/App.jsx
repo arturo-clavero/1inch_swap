@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import axios from "axios";
-import Secret from "./secrets";
+import Secret from "./tests";
 import './App.css';
 
 function getPrice(currency, amount){
@@ -46,7 +46,7 @@ function App() {
     console.log('called', amount, currency);
     try {
       const response = await axios.get(
-        'https://api.1inch.dev/price/v1.1/137/{addresses}', // NOTE: Replace {addresses}
+        'https://api.1inch.dev/price/v1.1/534351/0x5300000000000000000000000000000000000004', // NOTE: Replace {addresses}
         {
           headers: {
             Authorization: 'Bearer ${import.meta.env.1INCH_API_KEY}', // required for 1inch
@@ -71,7 +71,16 @@ function App() {
     }
   };
 
-  const handleSwap = () => {
+  const handleSwap = async () => {
+    try {
+      const response = await axios.post('http://localhost:3000/api/generate')
+      const hash = response.data.hash;
+      console.log("from backend hash is", hash);
+      //contract htlc
+    } catch (error) {
+      console.error("error generating secret", error);
+      alert('failed to start swap');
+    }
     alert(`Pretending to swap ${amount} ETH for USDC!`);
   };
 

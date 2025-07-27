@@ -1,10 +1,14 @@
 const express = require('express');
+const { generateSecret } = require('../controllers/generate');
 const router  = express.Router();
 
 router.get('/', (req, res) =>{
     res.send('this is bacjend');
 });
 router.post('/generate', (req, res) =>{
+    const { hash } = generateSecret;
+    res.json( {hash});//fly to frontend
+    
     res.send('here we will generate the secret')
     //frontend need the hash of the secret
 });

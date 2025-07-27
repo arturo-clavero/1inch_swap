@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
     res.send('<h1>Server is still running!</h1>');
 });
 
-const htlsRoutes = require('./routes/htlcSwap');
+const htlsRoutes = require('./routes/htlcRoute');
 app.use('/api', htlsRoutes);
 
 const port = process.env.PORT;
