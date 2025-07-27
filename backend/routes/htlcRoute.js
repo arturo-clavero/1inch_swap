@@ -6,11 +6,8 @@ router.get('/', (req, res) =>{
     res.send('this is bacjend');
 });
 router.post('/generate', (req, res) =>{
-    const { hash } = generateSecret;
+    const {hash} = generateSecret();
     res.json( {hash});//fly to frontend
-    
-    res.send('here we will generate the secret')
-    //frontend need the hash of the secret
 });
 router.post('/lock', (req, res) =>{
     res.send('Lock the token here')

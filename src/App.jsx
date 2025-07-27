@@ -74,6 +74,7 @@ function App() {
   const handleSwap = async () => {
     try {
       const response = await axios.post('http://localhost:3000/api/generate')
+      console.log("the response is ", response);
       const hash = response.data.hash;
       console.log("from backend hash is", hash);
       //contract htlc
