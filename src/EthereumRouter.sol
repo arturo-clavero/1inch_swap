@@ -6,42 +6,42 @@ import "./interfaces/IL1GatewayRouter.sol";
 
 //deployed on ethereum!
 contract EthereumRouter {
-	error tokenNotMapped();
-	event BridgeStarted(uint256 indexed orderId);
-	event BridgeFinished(uint256 indexed orderId);
+    error tokenNotMapped();
 
-	function verifyOrder() private pure returns (bool){
-		//TODO
-		return true;
-	}
+    event BridgeStarted(uint256 indexed orderId);
+    event BridgeFinished(uint256 indexed orderId);
 
-		//dst token address the address recipient ? To revise
-	function bridgeStart(uint256 amount, address srcTokenAddress, uint256 orderId) external payable{
-		address l1GatewayRouterAddress = 0xF8B1378579659D8F7EE5f3C929c2f3E332E41Fd6;
-		
-		//receive tokens
-		IERC20(srcTokenAddress).transferFrom(msg.sender, address(this), amount);
+    function verifyOrder() private pure returns (bool) {
+        //TODO
+        return true;
+    }
 
-		//approve token transfer 
-		IERC20(srcTokenAddress).approve(l1GatewayRouterAddress, amount);
-		
-		//get L2 token address
-		address dstTokenAddress = IL1GatewayRouter(l1GatewayRouterAddress).getL2ERC20Address(srcTokenAddress);
-    	if (dstTokenAddress == address(0))
-			revert tokenNotMapped();
+    //dst token address the address recipient ? To revise
+    function bridgeStart(uint256 amount, address srcTokenAddress, uint256 orderId) external payable {
+        address l1GatewayRouterAddress = 0xF8B1378579659D8F7EE5f3C929c2f3E332E41Fd6;
 
-		//send ERC20
-		IL1GatewayRouter(l1GatewayRouterAddress).depositERC20 {value: msg.value } (
-			srcTokenAddress,
-			dstTokenAddress,
-			amount,
-			200_000,            
-			"0x"// Optional calldata
-		);
+        //receive tokens
+        IERC20(srcTokenAddress).transferFrom(msg.sender, address(this), amount);
 
-		//send event notfication
-		emit BridgeStarted(orderId);
-	}
+        //approve token transfer
+        IERC20(srcTokenAddress).approve(l1GatewayRouterAddress, amount);
 
+        //get L2 token address
+        address dstTokenAddress = IL1GatewayRouter(l1GatewayRouterAddress).getL2ERC20Address(srcTokenAddress);
+        if (dstTokenAddress == address(0)) {
+            revert tokenNotMapped();
+        }
+
+        //send ERC20
+        IL1GatewayRouter(l1GatewayRouterAddress).depositERC20{value: msg.value}(
+            srcTokenAddress,
+            dstTokenAddress,
+            amount,
+            200_000,
+            "0x" // Optional calldata
+        );
+
+        //send event notfication
+        emit BridgeStarted(orderId);
+    }
 }
-
