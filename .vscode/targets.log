@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Jul 27 23:37:48 2025
+# Make data base, printed on Mon Jul 28 01:24:52 2025
 
 # Variables
 
@@ -95,15 +95,15 @@ MAKEFILE_LIST :=
 # environment
 ZSH = /home/artclave/.oh-my-zsh
 # environment
-VSCODE_PID = 2621942
+VSCODE_PID = 2678748
 # environment
-KRB5CCNAME = FILE:/tmp/krb5cc_103610_fvvU9j
+KRB5CCNAME = FILE:/tmp/krb5cc_103610_ZfJmtN
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/z3t5c2.42bangkok.com:@/tmp/.ICE-unix/2618666,unix/z3t5c2.42bangkok.com:/tmp/.ICE-unix/2618666
+SESSION_MANAGER = local/z3t5c2.42bangkok.com:@/tmp/.ICE-unix/2677498,unix/z3t5c2.42bangkok.com:/tmp/.ICE-unix/2677498
 # automatic
 *F = $(notdir $*)
 # environment
@@ -145,7 +145,7 @@ LC_MONETARY = en_US.UTF-8
 # environment
 LC_TIME = en_US.UTF-8
 # environment
-INVOCATION_ID = 1f9f7bd2a7d747e891a3d5f4ecceead3
+INVOCATION_ID = 2f2496f14b1f4cb6b8e01b2571a4a086
 # environment
 DOCKER_HOST = unix:///run/user/103610/docker.sock
 # environment
@@ -175,7 +175,7 @@ GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 2618691
+SYSTEMD_EXEC_PID = 2677528
 # environment
 DISPLAY = :0
 # environment
@@ -185,13 +185,13 @@ GTK_MODULES = gail:atk-bridge
 # default
 MAKE_VERSION := 4.3
 # environment
-MANAGERPID = 2617850
+MANAGERPID = 2676665
 # environment
 DEBUGINFOD_URLS = https://debuginfod.ubuntu.com 
 # environment
 LC_MEASUREMENT = en_US.UTF-8
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2621942
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2678748
 # environment
 PAGER = less
 # environment
@@ -203,7 +203,7 @@ XDG_RUNTIME_DIR = /run/user/103610
 # environment
 GPG_AGENT_INFO = /run/user/103610/gnupg/S.gpg-agent:0:1
 # environment
-JOURNAL_STREAM = 8:76530182
+JOURNAL_STREAM = 8:76835469
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -278,6 +278,9 @@ all:
 #  File has not been updated.
 
 # Not a target:
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 makefile:
 #  Implicit rule search has been done.
 #  File does not exist.
@@ -292,9 +295,6 @@ GNUmakefile:
 #  Failed to be updated.
 
 # files hash-table stats:
- 
-make: *** No rule to make target 'all'.  Stop.
-
 # Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
 
@@ -308,6 +308,6 @@ make: *** No rule to make target 'all'.  Stop.
 # strcache performance: lookups = 26 / hit rate = 11%
 # hash-table stats:
 # Load=23/8192=0%, Rehash=0, Collisions=0/26=0%
-# Finished Make data base on Sun Jul 27 23:37:48 2025
+# Finished Make data base on Mon Jul 28 01:24:52 2025
 
  
