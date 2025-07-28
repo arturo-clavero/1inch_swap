@@ -17,5 +17,8 @@ app.use('/api', htlsRoutes);
 const port = process.env.PORT;
 app.listen(port, () => {
     console.log(`Node.js HTTP server is running on port ${port}`);
-    console.log(`http://localhost:3000`)
+    console.log(`http://localhost:${port}`);
+
+    // Start the listeners
+    require('./listeners/broadcastOrder')(); 
 });
