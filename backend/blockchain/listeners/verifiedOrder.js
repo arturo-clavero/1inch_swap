@@ -9,17 +9,17 @@ const contractAddress = process.env.VERIFY_ORDER_CONTRACT_ADDRESS;
 const eventName = 'TestEvent'; 
 
 function storeVerifiedOrder(sender, value) {
-  console.log(`Received event from ${sender}, value: ${value.toString()}`);
-  redis.lpush('orders', Number(value));
+	console.log(`Received event from ${sender}, value: ${value.toString()}`);
+	redis.lpush('orders', Number(value));
 }
 
 module.exports =  function listenVerifiedOrder() {
 	const listener = new ContractListener(
-	  rpcWs,
-	  contractAddress,
-	  abi,
-	  eventName,
-	  storeVerifiedOrder
+	rpcWs,
+	contractAddress,
+	abi,
+	eventName,
+	storeVerifiedOrder
 	);
 	listener.start();
 }
