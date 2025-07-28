@@ -4,16 +4,14 @@ A minimal frontend interface to swap ETH for USDC using on-chain price data from
 
 ---
 ##  Project Tasks
-- [ 🚧LERA ] HTLC smart contracts
-- [ 🚧LERA ] HTLC backend integration
-- [ 🚧 ARTURO] Bridge smart contracts & backend integration
-- [ 🚧 ARTURO] Bridge backend integration
-- [ 🆓 ] Order creation (front end) & call smart contract
-- [ 🆓 ] Order struct on smart contract
-- [ 🆓 ] Order verification function on smart contract
-- [ 🆓 ] Swaps calls from Backend (APIs)
-- [ 🆓 ] Relayer backend logic (requires HTLC, swaps, and bridge finished)
-- [ 🆓 ] Price feeds (connect Chainlink in ./hooks/useQuoteFetcher.js)
+[ 🚧LERA ] HTLC smart contracts
+[ 🚧LERA ] HTLC backend integration
+[ 🚧 ARTURO] Bridge backend integration
+[ 🚧 CHAK ] Order creation (front end)
+[ 🆓 ] Swaps calls from Backend (APIs)
+[ 🆓 ] Dutch auction (time based lower price for relayers)
+[ 🆓 ] Relayer backend logic (requires HTLC, bridge, swap and auction finished)
+[ 🆓 ] Price feeds (connect Chainlink in ./hooks/useQuoteFetcher.js)
 
 
 
@@ -36,6 +34,7 @@ A minimal frontend interface to swap ETH for USDC using on-chain price data from
 
    ```bash
    cd ./backend
+   npm install
    node ./server.js
    ```
 
