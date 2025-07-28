@@ -15,10 +15,21 @@ const htlsRoutes = require('./routes/htlcRoute');
 app.use('/api', htlsRoutes);
 
 const port = process.env.PORT;
+
+const totalRelayers = 1;
+
 app.listen(port, () => {
     console.log(`Node.js HTTP server is running on port ${port}`);
     console.log(`http://localhost:${port}`);
 
-    // Start the listeners
-    require('./listeners/broadcastOrder')(); 
+	// start relayers
+	require('./blockchain/relayers/relayerManager');
+	const { startRelayers } = require('./blockchain/relayers/relayerManager');
+	startRelayers(totalRelayers)
+	.then(() => console.log('Relayers started and waiting for orders'))
+	.catch(console.error);
+
+    // Start listening for orders
+    require('./blockchain/listeners/verifiedOrder')();
+
 });
