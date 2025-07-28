@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-  "dev": "concurrently \"npm:proxy\" \"npm:client\"",
-  "proxy": "node proxy-server.js",
-  "client": "vite"
-},
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "axios": "^1.11.0",
     "cors": "^2.8.5",

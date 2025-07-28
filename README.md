@@ -3,6 +3,19 @@
 A minimal frontend interface to swap ETH for USDC using on-chain price data from 1inch or other APIs. Built with Vite and React.
 
 ---
+##  Project Tasks
+- [ 🚧LERA ] HTLC smart contracts
+- [ 🚧LERA ] HTLC backend integration
+- [ 🚧 ARTURO] Bridge smart contracts & backend integration
+- [ 🚧 ARTURO] Bridge backend integration
+- [ 🆓 ] Order creation (front end) & call smart contract
+- [ 🆓 ] Order struct on smart contract
+- [ 🆓 ] Order verification function on smart contract
+- [ 🆓 ] Swaps calls from Backend (APIs)
+- [ 🆓 ] Relayer backend logic (requires HTLC, swaps, and bridge finished)
+- [ 🆓 ] Price feeds (connect Chainlink in ./hooks/useQuoteFetcher.js)
+
+
 
 ##  Project Setup (Local Development)
 
@@ -16,10 +29,17 @@ A minimal frontend interface to swap ETH for USDC using on-chain price data from
 2. **Create a `.env` file**:
 
    ```env
-   VITE_1INCH_API_KEY=your_1inch_api_key_here
+   PORT=3000
    ```
 
-3. **Start the development server**:
+3. **Start the backend server**:
+
+   ```bash
+   cd ./backend
+   node ./server.js
+   ```
+
+4. **Start the development server**:
 
    ```bash
    npm run dev

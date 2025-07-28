@@ -1,7 +1,5 @@
-import { ethers } from 'ethers';
-import axios from "axios";
-import Secret from "./tests";
-import { useState, useEffect } from 'react';
+
+import { useState } from 'react';
 import WalletConnector from './components/WalletConnector';
 import SwapForm from './components/SwapForm';
 
@@ -15,7 +13,6 @@ function App() {
   const [walletAddress, setWalletAddress] = useState('');
   const [connected, setConnected] = useState(false);
 
-        'https://api.1inch.dev/price/v1.1/534351/0x53000', // NOTE: Replace {addresses}
   // Swap the currencies when clicking the button
   const swapCurrencies = () => {
     setOldCurrency(newCurrency);
