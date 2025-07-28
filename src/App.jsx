@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import axios from "axios";
-import Secret from "./tests";
+// import Secret from "./tests";
 import './App.css';
 
 function getPrice(currency, amount){
@@ -107,7 +107,6 @@ function App() {
             <p className="connected">Connected as {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}</p>
           </>
         )}
-        <Secret />
       </div>
     </div>
   );
