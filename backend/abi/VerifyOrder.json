@@ -1,18 +1,5 @@
 [
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "emitEvent",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -30,5 +17,18 @@
 		],
 		"name": "TestEvent",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "emitEvent",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	}
 ]
