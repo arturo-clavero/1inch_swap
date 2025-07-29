@@ -1,6 +1,6 @@
 const express = require('express');
 const { generateSecret } = require('../controllers/generate');
-const { ethContract, scrollContract } = require('../controllers/contract');
+const { ethHTLC, scrollHTLC } = require('../controllers/relayer');
 const { Contract, ethers } = require('ethers');
 const router  = express.Router();
 
@@ -12,13 +12,13 @@ router.post('/generate', (req, res) =>{
     res.json( {hash});//fly to frontend
 });
 router.post('/lock', async (req, res) =>{
-    const { receiver, hashlock, timelock, amount, chain } = req.body
+    const { receiver, hashlock, timelock, amount, chain } = req.body;
     try {
         let contract;
         if (chain === "eth") {
-            contract = ethContract;
+            contract = ethHTLC;
         } else if (chain === "scroll"){
-            contract = scrollContract;
+            contract = scrollHTLC;
         } else {
             res.status(400).json({error: "Unsopported chain"});
         }
@@ -26,6 +26,9 @@ router.post('/lock', async (req, res) =>{
         const txn = await contract.createSwap(receiver, bytesHashlock, timelock, {value: ethers.parseEther(amount)});
         await txn.wait();
         res.json({ status: "locked", txnHash: txn.hash})
+
+        // await txn.wait();
+        // res.json({ status: "locked", txnHash: txn.hash})
     } catch (err){
         console.error(err);
         return res.status(500).json({error: "Lock failed", details: err.message});
@@ -34,7 +37,7 @@ router.post('/lock', async (req, res) =>{
 });
 
 router.post('/withdraw', (req, res) =>{
-    res.send('Called when its time to redeem')
+    const { swapId, secret } = req.body;
 });
 router.post('/refund', (req, res) =>{
     res.send('timelock expired')

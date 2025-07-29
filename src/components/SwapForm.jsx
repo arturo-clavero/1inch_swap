@@ -26,7 +26,15 @@ const SwapForm = ({
       setIsLoading(false);
     }
   }, [connected, amount, oldCurrency, newCurrency, walletAddress]);
+  
   const [isSwapping, setIsSwapping] = useState(false); 
+  
+  
+  
+  //the lock triggers next event - relayer listens for the event - get swapId hashlock->
+  //-> triggers the event for relayer/resolver "lock the same amount on the scroll"
+
+
   const handleSwap = async () => {
     if (isSwapping) return ;
     try {
@@ -39,10 +47,11 @@ const SwapForm = ({
         receiver: walletAddress,
         hashlock: hash,
         timelock: 60 * 5,
-        amount: "0.00001", //eth
+        amount: "0.0000001", //eth
         chain: oldCurrency.toLowerCase()
       });
       console.log("Lock transaction:", lock.data.txnHash);
+      await new Promise(resolve => setTimeout(resolve, 3000));
       alert("Swap was simulated successfully");
     } catch (error) {
       console.error("error generating secret", error);
