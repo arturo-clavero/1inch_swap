@@ -1,129 +1,192 @@
-# 🚀 ETH ⇄ USDC Swap UI
 
-A minimal frontend interface to swap ETH for USDC using on-chain price data from 1inch or other APIs. Built with Vite and React.
+# Relayer Action Tester
 
----
-##  Project Tasks
-- [ 🚧LERA ] HTLC smart contracts
-- [ 🚧LERA ] HTLC backend integration
-- [ 🚧 ARTURO] Bridge backend integration
-- [ 🚧 CHAK ] Order creation (front end)
-- [ 🆓 ] Swaps calls from Backend (APIs)
-- [ 🆓 ] Dutch auction (time based lower price for relayers)
-- [ 🆓 ] Relayer backend logic (requires HTLC, bridge, swap and auction finished)
-- [ 🆓 ] Price feeds (connect Chainlink in ./hooks/useQuoteFetcher.js)
+This branch can be forked to test relayer actions in a mocked environment before integrating with main.
+
+## 1. Purpose
+
+This tool helps test and simulate relayer behavior and logic using mock actions. These actions are implemented to validate layout, sequencing, event listening, and smart contract interaction in a controlled environment.
 
 
+## 2. How to Test an Action
 
-##  Project Setup (Local Development)
-
-1. **Clone and install dependencies**:
-   ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
-   npm install
-``
-
-2. **Create a `.env` file**:
-
-   ```env
-   PORT=3000
-   ```
-
-3. **Start the backend server**:
-
-   ```bash
-   cd ./backend
-   npm install
-   node ./server.js
-   ```
-
-4. **Start the development server**:
-
-   ```bash
-   npm run dev
-   ```
-
-
-## Contributor Rules & Git Workflow
-
-### DO NOT PUSH TO `main` DIRECTLY
-
-> `main` is a protected branch. All changes must be submitted via Pull Request (PR).
-
-### Branch Naming
-
-* Always work on your **own branch**
-* Use meaningful branch names, e.g.:
-
-  * `feat/swap-form-ui`
-  * `fix/token-decimals-bug`
-  * `chore/setup-proxy-server`
-
-Create a branch like this:
+In the constructor of the `Relayer` class, you'll find the `this.actions` array. You can import action functions here from:
 
 ```bash
-git checkout -b feat/your-feature-name
+./backend/blockchain/relayers/actions/
 ```
+
+### Action Execution
+
+* Actions will be executed **in the order they appear in the array**.
+* Each action must call `self.nextAction()` at the end to trigger the next step in the sequence.
+
+### Testing Strategies
+
+You can:
+
+* **Substitute a mock function** with a new one.
+* **Add a new action** to the mock flow.
+* **Test a single action** or a group of specific interactions in isolation.
+
+Use the current mock flow and action files as examples of how to use available helper functions (like smart contract access and event waiting) to write your own actions efficiently.
+
+
+## 3. Action Format
+
+Each action must be a function that:
+
+* Takes `self` as the first parameter.
+* Uses `self.nextAction()` at the end to trigger the next action in sequence.
+* Can optionally listen for smart contract events using helper methods.
+
+### Event Listeners
+
+To wait for events:
+
+* Use `await self.waitForEvent()` inside your action.
+* Reference implementation:
+  [`./backend/blockchain/relayers/actions/startBridge.js`](./backend/blockchain/relayers/actions/startBridge.js)
+
+To run infinite listeners (e.g., for assignment):
+
+* Use `ContractListener.start()` method.
+* Reference implementation:
+  [`./backend/blockchain/relayers/actions/assignOrder.js`](./backend/blockchain/relayers/actions/assignOrder.js)
 
 ---
 
-### Commit Message Format
+## 4. Contracts
 
-Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for clarity:
+To use a smart contract in your actions, you need to import and configure it.
 
-| Type       | Purpose                     |
-| ---------- | --------------------------- |
-| `feat`     | A new feature               |
-| `fix`      | A bug fix                   |
-| `chore`    | Setup, tooling, minor tasks |
-| `docs`     | Documentation only          |
-| `style`    | Formatting, no code changes |
-| `refactor` | Code restructuring          |
+### Steps to Import a Contract
 
-**Examples:**
+1. **Compile Contract**
+   Use `remix` or `foundry` to compile and extract the ABI.
+
+2. **Add ABI**
+   Paste the ABI JSON into a new file in:
+
+   ```bash
+   ./backend/blockchain/contracts/abi/
+   ```
+
+3. **Deploy Contract**
+   Deploy using `remix`, `foundry`, or locally with Anvil.
+   If using Anvil, ensure it is running during testing.
+
+4. **Register Contract**
+   Add contract details (name, address, ABI path) in:
+
+   ```bash
+   ./backend/blockchain/contracts/contractData.js
+   ```
+
+5. **Add to contractData.js**
+
+   Add an object like this:
+
+   ```js
+   contractData["MyContract"] = {
+     address: "0x...",
+     abi: require("./abi/MyContract.json"),
+     provider: new ethers.providers.JsonRpcProvider(process.env.RPC_WS_ANVIL) // or your preferred RPC
+   };
+   ```
+
+6. **Configure .env**
+
+   Make sure the following values are set:
+
+   ```
+   RPC_WS_ANVIL=http://127.0.0.1:8545
+   WALLET_PRIVATE_KEY=your_private_key_without_quotes
+   ```
+
+   If using Anvil, use one of the mock private keys printed at launch.
+
+7. **Use in Code**
+
+   Example to access and call a function from your contract:
+
+   ```js
+   const contractData = require("./backend/blockchain/contracts/contractData.js");
+   const contract = contractData["MyContract"];
+   await contract.myFunction();
+   ```
+
+---
+
+## 5. .env File
+
+Place your `.env` file at the root level of the project (same level as `backend/` and `src/`).
+
+### Example
+
+```
+PORT=3000
+RPC_WS_ETHEREUM=https://rpc.sepolia.org
+RPC_WS_SCROLL=https://sepolia-rpc.scroll.io
+RPC_WS_ANVIL=http://127.0.0.1:8545
+RPC_WS_PUBLIC_TESTNET=http://127.0.0.1:8545
+WALLET_PRIVATE_KEY=0xac0974bec39a17e36b...
+```
+
+Got it—here’s the cleaned-up version without emojis:
+
+---
+
+## 6. How to Run the Current Setup
+
+### Step 1: Configure Environment
+
+* Create a `.env` file in the root directory.
+* Follow the format shown in `.env.example`.
+
+---
+
+### Step 2: Run the Services
+
+Open **three terminal windows**:
+
+**Terminal 1 – Frontend**
 
 ```bash
-git commit -m "feat: add USDC price fetch"
-git commit -m "fix: handle failed swap edge case"
-git commit -m "chore: add CORS proxy setup"
+npm run dev
+```
+
+**Terminal 2 – Local Blockchain (Anvil)**
+
+```bash
+anvil
+```
+
+**Terminal 3 – Backend**
+
+```bash
+cd backend
+npm install
+node ./server.js
 ```
 
 ---
 
-### Pushing & Pull Requests
+### Step 3: Deploy the Smart Contract
 
-* Push **only to your branch**
-* Open a **Pull Request** targeting `main`
-* Write a **clear title and description**
-* Tag reviewers if needed
+1. Open Remix IDE (or Forge).
+2. Load the file:
+   `./blockchain/backend/contracts/fakeContract.sol`
+3. Compile and deploy the contract to the Anvil local network.
+4. Copy the deployed contract address.
+5. Open `./contracts/contractData.js` and update the `router` object's `address` field with the new address.
+6. If you change the contract:
 
-Before submitting a PR, please ensure:
-
-* [ ] The app builds and runs locally
-* [ ] No console errors or warnings
-* [ ] Proper commit message format is used
-* [ ] No sensitive data or `.env` files are committed
-
----
-
-## 🛠 Example `.env`
-
-```env
-VITE_1INCH_API_KEY=your_actual_api_key
-```
-
-Access it in your code via:
-
-```js
-const apiKey = import.meta.env.VITE_1INCH_API_KEY;
-```
+   * Recompile it.
+   * Update the ABI in `./blockchain/backend/contracts/abi/router.json`.
 
 ---
 
+### Step 4: Test the Flow
 
-## 📄 License
-
-MIT
-
-```
+After deploying the contract, click **"Order Verified"** in Remix to trigger the flow.

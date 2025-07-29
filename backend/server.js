@@ -30,6 +30,6 @@ app.listen(port, () => {
 	.catch(console.error);
 
     // Start listening for orders
-    require('./blockchain/listeners/verifiedOrder')();
+    require('./blockchain/verifiedOrder')();
 
 });
