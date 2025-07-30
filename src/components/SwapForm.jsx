@@ -28,8 +28,9 @@ const SwapForm = ({
   }, [connected, amount, oldCurrency, newCurrency, walletAddress]);
 
   const initiateTrade = async () => {
+	//PHASE 1.1 
+	//TODO
 	//fill_order()
-    //verify_order()
   };
 
   return (

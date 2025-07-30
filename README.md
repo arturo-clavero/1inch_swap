@@ -1,19 +1,19 @@
 
-# Relayer Action Tester
+# resolver Action Tester
 
-This branch can be forked to test relayer actions in a mocked environment before integrating with main.
+This branch can be forked to test resolver actions in a mocked environment before integrating with main.
 
 ## 1. Purpose
 
-This tool helps test and simulate relayer behavior and logic using mock actions. These actions are implemented to validate layout, sequencing, event listening, and smart contract interaction in a controlled environment.
+This tool helps test and simulate resolver behavior and logic using mock actions. These actions are implemented to validate layout, sequencing, event listening, and smart contract interaction in a controlled environment.
 
 
 ## 2. How to Test an Action
 
-In the constructor of the `Relayer` class, you'll find the `this.actions` array. You can import action functions here from:
+In the constructor of the `resolver` class, you'll find the `this.actions` array. You can import action functions here from:
 
 ```bash
-./backend/blockchain/relayers/actions/
+./backend/blockchain/resolvers/actions/
 ```
 
 ### Action Execution
@@ -46,13 +46,13 @@ To wait for events:
 
 * Use `await self.waitForEvent()` inside your action.
 * Reference implementation:
-  [`./backend/blockchain/relayers/actions/startBridge.js`](./backend/blockchain/relayers/actions/startBridge.js)
+  [`./backend/blockchain/resolvers/actions/startBridge.js`](./backend/blockchain/resolvers/actions/startBridge.js)
 
 To run infinite listeners (e.g., for assignment):
 
 * Use `ContractListener.start()` method.
 * Reference implementation:
-  [`./backend/blockchain/relayers/actions/assignOrder.js`](./backend/blockchain/relayers/actions/assignOrder.js)
+  [`./backend/blockchain/resolvers/actions/assignOrder.js`](./backend/blockchain/resolvers/actions/assignOrder.js)
 
 ---
 

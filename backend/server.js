@@ -12,24 +12,24 @@ app.get('/', (req, res) => {
 });
 
 const htlsRoutes = require('./routes/htlcRoute');
+const { startRelayers } = require('./1inchExtension/relayers/relayersManager');
 app.use('/api', htlsRoutes);
 
 const port = process.env.PORT;
 
-const totalRelayers = 1;
+const totalresolvers = 1;
 
 app.listen(port, () => {
     console.log(`Node.js HTTP server is running on port ${port}`);
     console.log(`http://localhost:${port}`);
 
-	// start relayers
-	require('./blockchain/relayers/relayerManager');
-	const { startRelayers } = require('./blockchain/relayers/relayerManager');
-	startRelayers(totalRelayers)
-	.then(() => console.log('Relayers started and waiting for orders'))
+	// start resolvers
+	const { startRelayers } = require('./1inchExtension/relayers/relayersManager');
+	startRelayers(totalresolvers)
+	.then(() => console.log('relayers started and waiting for orders'))
 	.catch(console.error);
 
     // Start listening for orders
-    require('./blockchain/verifiedOrder')();
+    require('./1inchExtension/announcementPhase')();
 
 });
