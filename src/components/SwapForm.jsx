@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchQuote } from '../hooks/useQuoteFetcher';
 import axios from "axios";
+import { getContract } from '../utils/contract';
 
 const SwapForm = ({
   connected, walletAddress, oldCurrency, newCurrency,
@@ -27,11 +28,17 @@ const SwapForm = ({
     }
   }, [connected, amount, oldCurrency, newCurrency, walletAddress]);
 
-  const initiateTrade = async () => {
-	//PHASE 1.1 
-	//TODO
-	//fill_order()
-  };
+	const initiateTrade = async () => {
+		try {
+			const contract = await getContract(oldCurrency);
+			const tx = await contract.createOrder(args);//TODO
+			await tx.wait();
+			console.log("Success!");
+			
+		  } catch (err) {
+			console.error("Tx failed:", err);
+		  }
+	};
 
   return (
     <>
