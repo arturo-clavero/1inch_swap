@@ -83,7 +83,8 @@ const SwapForm = ({
           break;
         }
         else{
-          console.log("Relayer still lockong, try in the moment");
+          console.log("Relayer still locking, try in the moment");
+          await new Promise(r => setTimeout(r, 2000));
           tryes++;
         }
 
