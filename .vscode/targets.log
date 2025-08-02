@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Aug  1 05:42:26 2025
+# Make data base, printed on Sat Aug  2 13:17:29 2025
 
 # Variables
 
@@ -43,7 +41,7 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
 .VARIABLES := 
 # environment
-PWD = /home/artclave/Hackathon/1inch_swap
+PWD = /home/artclave/Hackathon/contracts
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
@@ -71,7 +69,7 @@ XAUTHORITY = /home/artclave/.Xauthority
 # makefile
 MAKEFLAGS = pqrR
 # makefile
-CURDIR := /home/artclave/Hackathon/1inch_swap
+CURDIR := /home/artclave/Hackathon/contracts
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
@@ -97,15 +95,15 @@ MAKEFILE_LIST :=
 # environment
 ZSH = /home/artclave/.oh-my-zsh
 # environment
-VSCODE_PID = 3370205
+VSCODE_PID = 2159615
 # environment
-KRB5CCNAME = FILE:/tmp/krb5cc_103610_MNzq0X
+KRB5CCNAME = FILE:/tmp/krb5cc_103610_7hbbpx
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/z3t1c1.42bangkok.com:@/tmp/.ICE-unix/3367242,unix/z3t1c1.42bangkok.com:/tmp/.ICE-unix/3367242
+SESSION_MANAGER = local/z3t2c1.42bangkok.com:@/tmp/.ICE-unix/2155974,unix/z3t2c1.42bangkok.com:/tmp/.ICE-unix/2155974
 # automatic
 *F = $(notdir $*)
 # environment
@@ -147,7 +145,7 @@ LC_MONETARY = en_US.UTF-8
 # environment
 LC_TIME = en_US.UTF-8
 # environment
-INVOCATION_ID = 08b1d4be265a498f9c842722471f364d
+INVOCATION_ID = c6111dfe6a0e407d8ff3d8e3d9bd1d6b
 # environment
 DOCKER_HOST = unix:///run/user/103610/docker.sock
 # environment
@@ -177,7 +175,7 @@ GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 3367269
+SYSTEMD_EXEC_PID = 2155998
 # environment
 DISPLAY = :0
 # environment
@@ -187,13 +185,13 @@ GTK_MODULES = gail:atk-bridge
 # default
 MAKE_VERSION := 4.3
 # environment
-MANAGERPID = 3366349
+MANAGERPID = 2154412
 # environment
 DEBUGINFOD_URLS = https://debuginfod.ubuntu.com 
 # environment
 LC_MEASUREMENT = en_US.UTF-8
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3370205
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2159615
 # environment
 PAGER = less
 # environment
@@ -205,7 +203,7 @@ XDG_RUNTIME_DIR = /run/user/103610
 # environment
 GPG_AGENT_INFO = /run/user/103610/gnupg/S.gpg-agent:0:1
 # environment
-JOURNAL_STREAM = 8:64027698
+JOURNAL_STREAM = 8:67850966
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -249,9 +247,9 @@ LC_IDENTIFICATION = en_US.UTF-8
 
 # Directories
 
-# . (device 2064, inode 4197171): 22 files, no impossibilities.
+# . (device 2064, inode 25194338): 21 files, no impossibilities.
 
-# 22 files, no impossibilities in 1 directories.
+# 21 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -288,6 +286,9 @@ makefile:
 
 # Not a target:
 GNUmakefile:
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
@@ -301,13 +302,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 30 / storage = 259 B / avg = 8 B
-# current buf: size = 8162 B / used = 259 B / count = 30 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 29 / storage = 256 B / avg = 8 B
+# current buf: size = 8162 B / used = 256 B / count = 29 / avg = 8 B
 
-# strcache performance: lookups = 33 / hit rate = 9%
+# strcache performance: lookups = 32 / hit rate = 9%
 # hash-table stats:
- 
-# Load=30/8192=0%, Rehash=0, Collisions=0/33=0%
-# Finished Make data base on Fri Aug  1 05:42:26 2025
+# Load=29/8192=0%, Rehash=0, Collisions=0/32=0%
+# Finished Make data base on Sat Aug  2 13:17:29 2025
 
  

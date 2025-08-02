@@ -1,6 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/artclave/Hackathon/1inch_swap'
-make: Leaving directory '/home/artclave/Hackathon/1inch_swap'
+make: Entering directory '/home/artclave/Hackathon/contracts'
+make: Leaving directory '/home/artclave/Hackathon/contracts'
  
 make: *** No targets specified and no makefile found.  Stop.
 
