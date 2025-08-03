@@ -1,6 +1,8 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/artclave/Hackathon/contracts'
+echo "Deploying to chain A..."
+ADDR_A=$(forge script ScrollRouterScript --rpc-url http://localhost:8545 --private-key 0x59c6995e998f97a5a0044966f0945382d43d04d36eaa1bc46c18339c31c8c45a --broadcast --silent --sig "run()" | grep 'Deployed to' | awk '{print $NF}'); \
+echo "ADDR_A=$ADDR_A" > .router.env; \
+echo "Deployed A: $ADDR_A"
 make: Leaving directory '/home/artclave/Hackathon/contracts'
  
-make: *** No targets specified and no makefile found.  Stop.
-

@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Aug  2 13:17:29 2025
+# Make data base, printed on Sun Aug  3 01:41:59 2025
 
 # Variables
 
@@ -72,8 +72,6 @@ MAKEFLAGS = pqrR
 CURDIR := /home/artclave/Hackathon/contracts
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
-# environment
-VSCODE_L10N_BUNDLE_LOCATION = 
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -88,22 +86,22 @@ XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 +D = $(patsubst %/,%,$(dir $+))
 # environment
 XDG_SESSION_DESKTOP = ubuntu
-# makefile
-MAKEFILE_LIST := 
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
 ZSH = /home/artclave/.oh-my-zsh
 # environment
-VSCODE_PID = 2159615
+VSCODE_PID = 2779892
 # environment
-KRB5CCNAME = FILE:/tmp/krb5cc_103610_7hbbpx
+KRB5CCNAME = FILE:/tmp/krb5cc_103610_c7e2xR
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/z3t2c1.42bangkok.com:@/tmp/.ICE-unix/2155974,unix/z3t2c1.42bangkok.com:/tmp/.ICE-unix/2155974
+SESSION_MANAGER = local/z3t2c1.42bangkok.com:@/tmp/.ICE-unix/2776668,unix/z3t2c1.42bangkok.com:/tmp/.ICE-unix/2776668
 # automatic
 *F = $(notdir $*)
 # environment
@@ -124,6 +122,8 @@ SHELL = /bin/sh
 MAKECMDGOALS := all
 # environment
 XMODIFIERS = @im=ibus
+# makefile (from 'Makefile', line 2)
+RPC_A = http://localhost:8545
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
@@ -136,6 +136,8 @@ MAKE = $(MAKE_COMMAND)
 PATH = /home/artclave/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/artclave/.foundry/bin
 # default
 MAKEFILES := 
+# makefile (from 'Makefile', line 1)
+PK = 0x59c6995e998f97a5a0044966f0945382d43d04d36eaa1bc46c18339c31c8c45a
 # environment
 LANGUAGE = en_US:
 # environment
@@ -145,7 +147,7 @@ LC_MONETARY = en_US.UTF-8
 # environment
 LC_TIME = en_US.UTF-8
 # environment
-INVOCATION_ID = c6111dfe6a0e407d8ff3d8e3d9bd1d6b
+INVOCATION_ID = 35995337e0ad43859d79ab43d81ed070
 # environment
 DOCKER_HOST = unix:///run/user/103610/docker.sock
 # environment
@@ -173,9 +175,9 @@ LOGNAME = artclave
 # environment
 GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
 # makefile
-.DEFAULT_GOAL := 
+.DEFAULT_GOAL := deploy_a
 # environment
-SYSTEMD_EXEC_PID = 2155998
+SYSTEMD_EXEC_PID = 2776693
 # environment
 DISPLAY = :0
 # environment
@@ -185,13 +187,13 @@ GTK_MODULES = gail:atk-bridge
 # default
 MAKE_VERSION := 4.3
 # environment
-MANAGERPID = 2154412
+MANAGERPID = 2775102
 # environment
 DEBUGINFOD_URLS = https://debuginfod.ubuntu.com 
 # environment
 LC_MEASUREMENT = en_US.UTF-8
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2159615
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2779892
 # environment
 PAGER = less
 # environment
@@ -203,7 +205,7 @@ XDG_RUNTIME_DIR = /run/user/103610
 # environment
 GPG_AGENT_INFO = /run/user/103610/gnupg/S.gpg-agent:0:1
 # environment
-JOURNAL_STREAM = 8:67850966
+JOURNAL_STREAM = 8:69245972
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -214,6 +216,8 @@ QT_IM_MODULE = ibus
 ELECTRON_RUN_AS_NODE = 1
 # environment
 VSCODE_IPC_HOOK = /run/user/103610/vscode-e449c818-1.99-main.sock
+# makefile (from 'Makefile', line 3)
+RPC_B = http://localhost:8546
 # environment
 FT_HOOK_PATHNAME = login-user.d
 # environment
@@ -239,7 +243,7 @@ GDMSESSION = ubuntu
 # environment
 LC_IDENTIFICATION = en_US.UTF-8
 # variable set hash-table stats:
-# Load=114/1024=11%, Rehash=0, Collisions=5/141=4%
+# Load=116/1024=11%, Rehash=0, Collisions=6/151=4%
 
 # Pattern-specific Variable Values
 
@@ -247,9 +251,9 @@ LC_IDENTIFICATION = en_US.UTF-8
 
 # Directories
 
-# . (device 2064, inode 25194338): 21 files, no impossibilities.
+# . (device 2064, inode 25194338): 23 files, no impossibilities.
 
-# 21 files, no impossibilities in 1 directories.
+# 23 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -260,9 +264,50 @@ LC_IDENTIFICATION = en_US.UTF-8
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
+#  Last modified 2025-08-02 23:55:16.460373597
+#  File has been updated.
+#  Successfully updated.
+
+deploy_a:
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
 #  File does not exist.
 #  File has been updated.
-#  Failed to be updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := deploy_a
+# automatic
+# * := 
+ 
+# automatic
+# < := 
+# automatic
+# + := 
+# automatic
+# % := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
+# automatic
+# | := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/13=8%
+#  recipe to execute (from 'Makefile', line 6):
+	@echo "Deploying to chain A..."
+	@ADDR_A=$$(forge script ScrollRouterScript --rpc-url $(RPC_A) --private-key $(PK) --broadcast --silent --sig "run()" | grep 'Deployed to' | awk '{print $$NF}'); \
+	echo "ADDR_A=$$ADDR_A" > .router.env; \
+	echo "Deployed A: $$ADDR_A"
+
+deploy_b:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 12):
+	@echo "Deploying to chain B..."
+	@ADDR_B=$$(forge script EthereumRouterScript --rpc-url $(RPC_B) --private-key $(PK) --broadcast --silent --sig "run()" | grep 'Deployed to' | awk '{print $$NF}'); \
+	echo "ADDR_B=$$ADDR_B" >> .router.env; \
+	echo "Deployed B: $$ADDR_B"
 
 # Not a target:
 .DEFAULT:
@@ -270,44 +315,46 @@ Makefile:
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-all:
+all: deploy_a deploy_b set_destinations
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+
+set_destinations:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 18):
+	@. ./.router.env; \
+	echo "Setting destination on A → B"; \
+	forge script script/DeployAndConfigureRouters.s.sol --rpc-url $(RPC_A) --private-key $(PK) --broadcast --sig "setDestination(address)" $$ADDR_B; \
+	echo "Setting destination on B → A"; \
+	forge script script/DeployAndConfigureRouters.s.sol --rpc-url $(RPC_B) --private-key $(PK) --broadcast --sig "setDestination(address)" $$ADDR_A
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-makefile:
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has been updated.
-#  Failed to be updated.
-
-# Not a target:
-GNUmakefile:
- 
-make: *** No rule to make target 'all'.  Stop.
-
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has been updated.
-#  Failed to be updated.
-
 # files hash-table stats:
-# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
+# Load=7/1024=1%, Rehash=0, Collisions=0/22=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 29 / storage = 256 B / avg = 8 B
-# current buf: size = 8162 B / used = 256 B / count = 29 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 31 / storage = 282 B / avg = 9 B
+# current buf: size = 8162 B / used = 282 B / count = 31 / avg = 9 B
 
-# strcache performance: lookups = 32 / hit rate = 9%
+# strcache performance: lookups = 44 / hit rate = 29%
 # hash-table stats:
-# Load=29/8192=0%, Rehash=0, Collisions=0/32=0%
-# Finished Make data base on Sat Aug  2 13:17:29 2025
+# Load=31/8192=0%, Rehash=0, Collisions=0/44=0%
+# Finished Make data base on Sun Aug  3 01:42:00 2025
 
  
