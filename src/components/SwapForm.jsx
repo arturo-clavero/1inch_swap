@@ -3,7 +3,7 @@ import { fetchQuote } from '../hooks/useQuoteFetcher';
 import HTLC_abi from "../../abi/HTLC.json";
 import { ethers, Contract } from "ethers";
 import axios from "axios";
-import { generateSecret } from './Handling';
+import { generateMerkleSecrets } from './secretGeneration';
 
 const ethHtlc = import.meta.env.VITE_ETH_CONTRACT_ADDRESS;
 const scrollHtlc = import.meta.env.VITE_SCROLL_CONTRACT_ADDRESS;
@@ -55,22 +55,17 @@ const SwapForm = ({
     if (isSwapping || isLocking) return ;
     try {
       setIsSwapping(true);
-      const {hash, secret } = generateSecret();
-      const bytesHashlock = hash.startsWith("0x") ? hash : "0x" + hash;
+
+      const {root, secrets } = generateMerkleSecrets(4);
+      const bytesHashlock = root.startsWith("0x") ? root : "0x" + root;
       
       //user should sign the swap -> create instance with user signer
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
-      let contract;
-        if (oldCurrency.toLowerCase() === "eth") {
-            contract = ethHtlc;
-        } else if ( oldCurrency.toLowerCase() === "scroll"){
-            contract = scrollHtlc;
-        } else {
-            alert('unsupported chain');
-        }
+      const  contract = oldCurrency.toLowerCase() === "eth" ? ethHtlc : scrollHtlc;
       htlcRef.current = new ethers.Contract(contract, HTLC_abi, signer);
       const htlcContract = htlcRef.current;
+
       const amount = ethers.parseEther("0.00000001");
       const timelock =  60; //sec
       const txn = await htlcContract.createSwap(
@@ -80,8 +75,8 @@ const SwapForm = ({
           { value: amount }
       );
       await txn.wait();
-      const response = await axios.get(`http://localhost:3000/api/swap/${hash}`);
-      const swapId = response.data.swapId;
+
+      const swapId = ethers.keccak256(ethers.solidityPacked(["address", "bytes32"], walletAddress, bytesHashlock))
       localStorage.setItem("swapId", swapId);
       let tryes = 0;
       const maxTryes = 10;
@@ -133,6 +128,44 @@ const SwapForm = ({
         }
   };
   //------ Refund check and cleanong use effect ------//
+  const partialWithdraw = async (index, amountStr) => {
+  try {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+    const contractAddress = oldCurrency.toLowerCase() === "eth" ? ethHtlc : scrollHtlc;
+    const htlcContract = new ethers.Contract(contractAddress, HTLC_abi, signer);
+
+    const secrets = JSON.parse(localStorage.getItem("secrets") || "[]");
+    const leaves = JSON.parse(localStorage.getItem("leaves") || "[]");
+    const root = localStorage.getItem("root");
+    const swapId = localStorage.getItem("swapId");
+
+    if (!secrets.length || !leaves.length || !swapId) {
+      alert("Missing Merkle tree or swap data.");
+      return;
+    }
+
+    const secret = secrets[index];
+    const leaf = ethers.keccak256(secret);
+    const tree = new MerkleTree(leaves, ethers.keccak256, { sortPairs: true });
+    const proof = tree.getHexProof(leaf);
+    const amountToWithdraw = ethers.parseEther(amountStr);
+
+    const tx = await htlcContract.withdrawParts(
+      swapId,
+      index,
+      secret,
+      amountToWithdraw,
+      proof
+    );
+    await tx.wait();
+
+    alert(`Successfully withdrew chunk ${index}`);
+  } catch (err) {
+    console.error("Partial withdraw failed", err);
+    alert("Partial withdraw failed.");
+  }
+};
 
  useEffect(() => {
     const preRefundCheck = async () => {
@@ -171,6 +204,8 @@ const SwapForm = ({
           localStorage.removeItem('secret');
           localStorage.removeItem('hash');
           localStorage.removeItem('swapId');
+          localStorage.removeItem('leaves');
+          localStorage.removeItem('root');
         }
       }
     };  
@@ -240,10 +275,12 @@ const SwapForm = ({
            Refund swap
         </button>
       )}
+      {[0,1,2,3].map(i => (
+      <button key={i} onClick={() => partialWithdraw(i, "0.000025")}>
+        Withdraw Chunk {i}
+      </button>
+))}
 
-      {timeLeft !== null && !isRefundable && (
-        <p>You can refund money in: {Math.floor(timeLeft / 60)}m {timeLeft % 60}s</p>
-      )}
 
 	  <p className="connected">
   Connected as{' '}
