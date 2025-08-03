@@ -2,6 +2,8 @@ const express = require('express');
 const { pendingSwaps } = require('../controllers/relayerListeners'); 
 const { Contract, ethers } = require('ethers');
 const router  = express.Router();
+const {startEventListeners, registerSecretsForSwap} = require('./controllers/relayerListeners');
+
 
 router.get('/', (req, res) =>{
     res.send('this is bacjend');
@@ -29,8 +31,11 @@ router.get('/swap/:hashlock', (req, res) =>{
         swapId: swapData.ethSwapId || swapData.scrollSwapId
     })
 })
-router.post('/refund', (req, res) =>{
-    res.send('timelock expired')
+app.post('/api/register-secrets', (req, res) => {
+  const { swapId, secrets } = req.body;
+  const ok = registerSecretsForSwap(swapId, secrets);
+  res.status(ok ? 200 : 400).json({ ok });
 });
+
 
 module.exports = router;
